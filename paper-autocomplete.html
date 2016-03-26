@@ -197,7 +197,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     },
 
     // Element Behavior
-
+	/**
+	 * Clears the input text
+	 */
+	clear : function() {
+		this.value=this._value;
+		this.$.input.value='';
+		this.$.clear.style.display = 'none';
+		this._hideSuggestionsWrapper();
+		this._emptyItems();
+		var option = {
+			text: this.$.input.value,
+			value: this.value
+		};
+		this._fireEvent(option,'reset');
+	},
     /**
      * Hide the suggestions wrapper
      */
