@@ -66,10 +66,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       background:#eee;
       color:#333;
     }
-
-    #clear{
-      display: none;
-    }
     
     paper-input {
 			--paper-input-container-focus-color: #3ea346;
@@ -134,11 +130,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       value: {
         type: Object,
         notify: true
-      },
-
-      showClear:{
-        type:Boolean,
-        value:false
       },
 
       remoteSource:{
@@ -208,22 +199,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     // Element Behavior
 
     /**
-     * Clears the input text
-     */
-    _clear : function() {
-      this.value=this._value;
-      this.$.input.value='';
-      this.$.clear.style.display = 'none';
-      this._hideSuggestionsWrapper();
-      this._emptyItems();
-      var option = {
-        text: this.$.input.value,
-        value: this.value
-      };
-      this._fireEvent(option,'reset');
-    },
-
-    /**
      * Hide the suggestions wrapper
      */
     _hideSuggestionsWrapper: function() {
@@ -249,7 +224,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       if (value && value.length >= minLength) {
         this._fireEvent(option, 'change');
       } else {
-        this.$.clear.style.display = 'none';
         this._suggestions = [];
       }
     },
@@ -259,10 +233,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this._suggestions = arr;
         this._currentIndex = -1;
         this._scrollIndex = 0;
-        this.$.clear.style.display = 'block';
         this.$.suggestionsWrapper.style.display = 'block';
       } else {
-        this.$.clear.style.display = 'none';
         this._suggestions = [];
       }
     },
@@ -275,9 +247,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       if(value && value.length >=minLength){
         value = value.toLowerCase();
-
-        // Shows the clear button.
-        this.$.clear.style.display = 'block';
 
         // Search for the word in the source properties.
         if(this.source && this.source.length > 0){
@@ -304,7 +273,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           }
         }
       }else{
-        this.$.clear.style.display = 'none';
         this._suggestions = [];
       }
     },
@@ -317,10 +285,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       this.value = selectedOption[this.valueProperty];
       this._value=this.value;
       this.label=this.$.input.value;
-
-      if(!this.showClear){
-        this.$.clear.style.display = 'none';
-      }
+      
       this._emptyItems();
       this._fireEvent(selectedOption,'selected');
 
