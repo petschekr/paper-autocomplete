@@ -279,6 +279,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               // Adds the item to the suggestions list.
               this.push('_suggestions', {text : objText , value : objValue});
             }
+            var splitName = objText.toLowerCase().split(" ");
+            if(splitName.length > 1 && splitName[splitName.length - 1].indexOf(value) === 0) {
+            	// Adds the item to the suggestions list.
+            	this.push('_suggestions', {text : objText , value : objValue});
+            }
           }
 
           if (this._suggestions.length > 0) {
